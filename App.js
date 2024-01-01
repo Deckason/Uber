@@ -1,5 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import HomeScreen from './screens/HomeScreen';
+import 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import MapScreen from './screens/MapScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (<>
@@ -8,14 +17,25 @@ export default function App() {
         barStyle="light-content"
         translucent={false}
       />
-      <SafeAreaView style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </SafeAreaView>
+      <NavigationContainer >
+        <SafeAreaProvider>
+          <Stack.Navigator>
+            <Stack.Screen name="HomeScreen" component={HomeScreen} 
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="MapScreen" component={MapScreen} 
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </SafeAreaProvider>
+      </NavigationContainer>
   </>);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  
 });
