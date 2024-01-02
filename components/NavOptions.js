@@ -2,6 +2,7 @@ import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import React from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native'
+import { navStore } from '../store/navStore'
 
 const data = [
     {
@@ -19,14 +20,18 @@ const data = [
 ]
 
 const NavOptions = () => {
+    
     const navigation = useNavigation()
+    const {origin} = navStore()
+
   return (
     <FlatList 
         data={data}
         keyExtractor={(item)=>item.id}
         horizontal
         renderItem={({item})=>(
-            <TouchableOpacity style={styles.navContainer}
+            <TouchableOpacity style={[styles.navContainer, !origin && {opacity: 0.5}]}
+                disabled={!origin}
                 onPress={()=>navigation.navigate(item.screen)}
             >
                 <View style={styles.navView}>
