@@ -4,20 +4,22 @@ import HomeScreen from './screens/HomeScreen';
 import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator } from '@react-navigation/stack';
 import MapScreen from './screens/MapScreen';
+import { useEffect } from 'react';
+// import { GOOGLE_MAP_API_KEY } from "@env";
 
-const Stack = createStackNavigator();
 
 export default function App() {
+  const Stack = createStackNavigator();
+
   return (<>
       <StatusBar 
         style='light'
         barStyle="light-content"
         translucent={false}
       />
-      <NavigationContainer >
+      <NavigationContainer style={styles.appContainer}>
         <SafeAreaProvider>
           <Stack.Navigator>
             <Stack.Screen name="HomeScreen" component={HomeScreen} 
@@ -37,5 +39,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  
+  appContainer: {
+    backgroundColor: "#fff"
+  }
 });

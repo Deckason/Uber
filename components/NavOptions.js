@@ -17,7 +17,6 @@ const data = [
         screen: "EatScreen"
     },
 ]
-// AIzaSyD4sTOeedKhaFdWI78Zmvti8D-3UtG5F8Q
 
 const NavOptions = () => {
     const navigation = useNavigation()

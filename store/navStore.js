@@ -1,7 +1,7 @@
 import React from 'react'
 import { create } from 'zustand'
 
-export const userStore = create((set) => ({
+export const navStore = create((set) => ({
   origin:null,
   destination:null,
   travelTimeInformation:null,
