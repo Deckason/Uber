@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { navStore } from '../store/navStore';
 import { useNavigation } from '@react-navigation/native';
+import FavoriteNavOptions from './FavoriteNavOptions';
+import { Icon } from 'react-native-elements';
 
 const NavigateCard = () => {
     const {updateDestination} = navStore()
@@ -34,6 +36,29 @@ const NavigateCard = () => {
                     // types: '(cities)' // default: 'geocode'
                 }}
             />
+            <FavoriteNavOptions />
+        </View>
+        <View style={styles.ridesAndEatries}>
+            <TouchableOpacity style={[styles.bottomIcons, styles.rides]}
+                onPress={()=>navigation.navigate("RideOptionsCard")}
+            >
+                <Icon
+                    name='car'
+                    type="font-awesome"
+                    color={"white"}
+                    size={16}
+                />
+                <Text style={styles.ridesCaption}>Rides</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.bottomIcons, styles.eats]}>
+                <Icon
+                    name='fast-food-outline'
+                    type="ionicon"
+                    color={"black"}
+                    size={16}
+                />
+                <Text style={styles.eatsCaption}>Eats</Text>
+            </TouchableOpacity>
         </View>
     </SafeAreaView>
   )
@@ -71,5 +96,33 @@ const styles = StyleSheet.create({
     cardsgoogleView: {
         borderTopColor: "lightgray",
 
+    },
+    ridesAndEatries: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        backgroundColor: "white",
+        borderTopColor: "lightgray",
+        marginTop: "auto",
+        paddingBottom: 5,
+    },
+    bottomIcons: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        width: 90,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderRadius: 50,
+    },
+    rides: {
+        backgroundColor: "black",
+    },
+    ridesCaption: {
+        color: "white",
+    },
+    eats: {
+        backgroundColor: "white",
+    },
+    eatsCaption: {
+        color: "black"
     },
 })

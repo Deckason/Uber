@@ -1,13 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MapScreen from './screens/MapScreen';
-import { useEffect } from 'react';
-// import { GOOGLE_MAP_API_KEY } from "@env";
 
 
 export default function App() {
@@ -19,27 +17,29 @@ export default function App() {
         barStyle="light-content"
         translucent={false}
       />
-      <NavigationContainer style={styles.appContainer}>
+      <NavigationContainer>
         <SafeAreaProvider>
-          <Stack.Navigator>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} 
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="MapScreen" component={MapScreen} 
-              options={{
-                headerShown: false,
-              }}
-            />
-          </Stack.Navigator>
+          <KeyboardAvoidingView
+            style={{flex: 1}}
+            behavior={Platform.OS === "ios" ? 'padding' : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 100: 0}
+            >
+            <Stack.Navigator>
+              <Stack.Screen name="HomeScreen" component={HomeScreen} 
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen name="MapScreen" component={MapScreen} 
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </Stack.Navigator>
+          </KeyboardAvoidingView>
         </SafeAreaProvider>
       </NavigationContainer>
   </>);
 }
 
-const styles = StyleSheet.create({
-  appContainer: {
-    backgroundColor: "#fff"
-  }
-});
+const styles = StyleSheet.create({});
