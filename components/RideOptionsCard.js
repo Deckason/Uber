@@ -31,7 +31,6 @@ const RideOptionsCard = () => {
   const [selected, setSelected] = useState(null)
   const navigation = useNavigation()
   const {travelTimeInformation, destination} = navStore()
-  console.log(destination, travelTimeInformation)
   return (
     <SafeAreaView style={styles.container}>
       <View>
