@@ -5,7 +5,7 @@ import { navStore } from '../store/navStore';
 import MapViewDirections from "react-native-maps-directions"
 
 const Map = () => {
-    const {origin, destination} = navStore()
+    const {origin, destination, travelTimeInformation, updateTravelTimeInformation} = navStore()
     const mapRef = useRef(null)
 
     useEffect(()=>{
@@ -16,6 +16,24 @@ const Map = () => {
             edgePadding: {top: 50, right: 50, bottom: 50, left: 50}
         })
     }, [origin, destination])
+
+    useEffect(()=>{
+        if(!origin || !destination) return
+
+        const getTravelTime = async()=>{
+            try {
+                const res = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?
+                                        units=imperial&origins=${origin.description}&destinations=${
+                                        destination.description}&key=${process.env.GOOGLE_MAP_API_KEY}`)
+                const data = await res.json()
+                updateTravelTimeInformation(data.rows[0].elements[0])
+            } catch (error) {
+                console.log("Erro", error.message)
+            }
+        }
+
+        getTravelTime()
+    }, [origin, destination, process.env.GOOGLE_MAP_API_KEY])
 
   return (
         <View style={styles.container}>
